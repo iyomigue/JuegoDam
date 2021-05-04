@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:background="@drawable/fondopregunta"
+    android:padding="10dp"
+    android:visibility="visible"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/puntuacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:gravity="center|bottom"
+        android:text="Por 1200 puntos:"
+        android:textColor="@color/white"></TextView>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|top"
+        android:background="@drawable/terminaldelinux3"
+        android:layout_marginTop="45dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
+            android:id="@+id/pregunta"
+            android:text="¿Pregunta de ejemplo?"
+            >
+        </TextView>
+    </RelativeLayout>
+
+    <GridLayout
+        android:id="@+id/layout_respuestas"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:columnCount="1"
+        android:orientation="horizontal"
+        android:rowCount="3">
+
+
+
+        <LinearLayout
+            android:id="@+id/layout_comodines"
+            android:layout_width="fill_parent"
+            android:layout_height="64dp"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/boton_5050"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:layout_marginRight="5dp"
+                android:onClick="AplicarComodin50"
+                android:src="@drawable/fifty"
+                android:scaleType="fitXY"
+                android:background="@color/material_on_background_disabled"
+                />
+
+            <ImageButton
+                android:id="@+id/boton_publico"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:src="@drawable/analitica"
+                android:scaleType="fitXY"
+                android:onClick="AplicarComodinPublico"
+                android:background="@color/material_on_background_disabled"
+                 />
+            <ImageButton
+                android:id="@+id/boton_saltar"
+                android:layout_width="60dp"
+                android:text="Saltar"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:src="@drawable/saltar"
+                android:scaleType="fitXY"
+                android:onClick="AplicarComodinSaltar"
+                android:background="@color/material_on_background_disabled"
+                />
+            <ImageButton
+                android:id="@+id/boton_plantarse"
+                android:layout_width="60dp"
+                android:text="Plantarse"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:src="@drawable/planta"
+                android:scaleType="fitXY"
+                android:onClick="AplicarComodinPlantarse"
+                android:background="@color/material_on_background_disabled"
+                />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/boton_opcion_1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="3dp"
+            android:background="#845208"
+            android:onClick="CompruebaPregunta"
+            android:text="RESPUESTA 1"
+            android:textAllCaps="false"
+            android:textColor="#ffffff"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:visibility="visible"
+            app:backgroundTint="#B7678998" />
+
+        <Button
+            android:id="@+id/boton_opcion_2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="3dp"
+            android:background="#845208"
+            android:onClick="CompruebaPregunta"
+            android:text="RESPUESTA 2"
+            android:textAllCaps="false"
+            android:textColor="#ffffff"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:visibility="visible"
+            app:backgroundTint="#B7678998" />
+
+        <Button
+            android:id="@+id/boton_opcion_3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="3dp"
+            android:background="#845208"
+            android:onClick="CompruebaPregunta"
+            android:text="RESPUESTA 3"
+            android:textAllCaps="false"
+            android:textColor="#ffffff"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:visibility="visible"
+            app:backgroundTint="#B7678998" />
+
+        <Button
+            android:id="@+id/boton_opcion_4"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="#845208"
+            android:onClick="CompruebaPregunta"
+            android:text="RESPUESTA 4"
+            android:textAllCaps="false"
+            android:textColor="#ffffff"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:visibility="visible"
+            app:backgroundTint="#B7678998" />
+    </GridLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_progreso"
+        android:layout_width="fill_parent"
+        android:layout_height="64dp"
+        android:gravity="center"
+        android:layout_marginTop="40dp">
+
+        <ImageButton
+            android:id="@+id/Progreso1"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginBottom="3dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/antena"
+            android:scaleType="fitXY"
+            android:background="@color/material_on_background_disabled"
+            />
+        <!--El codigo para añadir dinamicamente un boton seria:
+         ImageButton botonprogreso = new ImageButton(this);
+        layout = (LinearLayout) findViewById(R.id.layout_progreso);
+            LayoutParams lp = new LayoutParams(20, 20);
+            button.setLayoutParams(lp);
+            button.setText("ADDED");
+            layout.addView(button);
+         -->
+        </LinearLayout>
+
+
+</LinearLayout>
+

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    tools:context="com.dam.proyecto.PantallaFinal">
+
+    <ImageButton
+        android:id="@+id/shareTwitter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/shareButton"
+        android:layout_marginLeft="205dp"
+        android:backgroundTint="@color/white"
+        android:contentDescription="Twitter"
+        android:onClick="Ir_twitter"
+        android:src="@drawable/twitter_32" />
+
+    <ImageButton
+        android:id="@+id/shareButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="150dp"
+        android:layout_marginTop="400dp"
+        android:backgroundTint="@color/compartir"
+        android:onClick="Ir_Compartir"
+        android:src="@android:drawable/ic_menu_share" />
+
+    <ImageButton
+        android:layout_width="61dp"
+        android:layout_height="44dp"
+        android:onClick="home"
+        android:backgroundTint="@color/white"
+        android:src="@drawable/home_icon" />
+
+    <Button
+        android:id="@+id/guardar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nombre"
+        android:layout_alignStart="@+id/nombre"
+        android:layout_alignLeft="@+id/nombre"
+        android:layout_marginStart="-2dp"
+        android:layout_marginLeft="-2dp"
+        android:layout_marginTop="16dp"
+        android:onClick="guardar"
+        android:text="guardar puntuacion" />
+
+    <EditText
+        android:id="@+id/nombre"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:layout_marginLeft="100dp"
+        android:inputType="textPersonName"
+        android:text="Introduce tu nombre" />
+
+    <TextView
+        android:id="@+id/puntos"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="140dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PUNTUACION: " />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/guardar"
+        android:layout_alignStart="@+id/guardar"
+        android:layout_alignLeft="@+id/guardar"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="16dp"
+        android:onClick="calificaciones"
+        android:text="mostrar calificaciones" />
+
+
+</RelativeLayout>

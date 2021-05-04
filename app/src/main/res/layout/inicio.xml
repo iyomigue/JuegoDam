@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondoinicio22"
+
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:visibility="visible">
+
+    <ImageView
+        android:layout_width="273dp"
+        android:layout_height="276dp"
+        android:layout_gravity="center"
+        android:src="@drawable/logo1" />
+
+    <Button
+        android:id="@+id/jugar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="monospace"
+        android:onClick="jugar"
+        android:text=" JUGAR "
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/black"
+        android:textSize="22dp"
+        app:backgroundTint="@color/botonJugar" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center|bottom"
+        android:text="Proyecto de Diseño de Aplicaciones Móviles.\n Francisco Berdejo, Carmen Cohen y Miguel Aguirre."
+        android:textColor="@color/white"
+        android:textStyle="italic" />
+</LinearLayout>
