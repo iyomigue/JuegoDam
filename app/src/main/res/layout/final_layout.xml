@@ -4,9 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@drawable/podio"
     android:orientation="vertical"
     tools:context="com.dam.proyecto.PantallaFinal">
-
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/confetti"/>
     <ImageButton
         android:id="@+id/shareTwitter"
         android:layout_width="wrap_content"
@@ -23,7 +27,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="150dp"
-        android:layout_marginTop="400dp"
+        android:layout_below="@+id/info"
+        android:layout_marginTop="10dp"
         android:backgroundTint="@color/compartir"
         android:onClick="Ir_Compartir"
         android:src="@android:drawable/ic_menu_share" />
@@ -34,26 +39,30 @@
         android:onClick="home"
         android:backgroundTint="@color/white"
         android:src="@drawable/home_icon" />
-
+    <TextView
+        android:id="@+id/info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="350dp"
+        android:text="Comparte con tus amigos o en nuestro Twitter"
+        />
     <Button
         android:id="@+id/guardar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/nombre"
-        android:layout_alignStart="@+id/nombre"
-        android:layout_alignLeft="@+id/nombre"
-        android:layout_marginStart="-2dp"
-        android:layout_marginLeft="-2dp"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:onClick="guardar"
         android:text="guardar puntuacion" />
 
     <EditText
         android:id="@+id/nombre"
-        android:layout_width="190dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:layout_marginLeft="100dp"
+        android:layout_marginTop="150dp"
+        android:layout_centerHorizontal="true"
         android:inputType="textPersonName"
         android:text="Introduce tu nombre" />
 
@@ -70,11 +79,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/guardar"
-        android:layout_alignStart="@+id/guardar"
-        android:layout_alignLeft="@+id/guardar"
-        android:layout_marginStart="1dp"
-        android:layout_marginLeft="1dp"
-        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="-22dp"
+        android:layout_marginLeft="-22dp"
+        android:layout_marginTop="17dp"
         android:onClick="calificaciones"
         android:text="mostrar calificaciones" />
 

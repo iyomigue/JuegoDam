@@ -12,6 +12,18 @@ import twitter4j.auth.AccessToken;
 
 @SuppressWarnings("deprecation")
 public class PublicarTweet extends AsyncTask<String, String, String> {
+    private Integer puntuacion;
+    private String nombre;
+    public PublicarTweet(String name, int puntos) {
+        if (name == null){
+            this.nombre = "El jugador";
+        }else{
+            this.nombre = name;
+        }
+
+    this.puntuacion=puntos;
+    }
+
     @Override  protected void onPreExecute() {
 
     }
@@ -22,10 +34,8 @@ public class PublicarTweet extends AsyncTask<String, String, String> {
         twitter.setOAuthAccessToken(a);
 
         try {
-            Random rand = new Random();
-            int upperbound=255;
-            int int_random = rand.nextInt(upperbound);
-            String status= "Puntos:"+Integer.toString(int_random);
+            String emoji =  getEmojiByUnicode(127881) ;
+            String status= nombre + " ha conseguido "+puntuacion.toString() +"puntos " + emoji+emoji;
             twitter.updateStatus(status);
         } catch (TwitterException e) {
             // TODO Auto-generated catch block
@@ -40,5 +50,8 @@ public class PublicarTweet extends AsyncTask<String, String, String> {
     }
     @Override  protected void onProgressUpdate(String... text) {
 
+    }
+    public String getEmojiByUnicode(int unicode){
+        return new String(Character.toChars(unicode));
     }
 }

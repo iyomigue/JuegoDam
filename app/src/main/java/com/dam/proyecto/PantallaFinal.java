@@ -14,6 +14,7 @@ public class PantallaFinal extends AppCompatActivity {
 
     private int puntos;
     private BBDD bd;
+    private String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,7 @@ public class PantallaFinal extends AppCompatActivity {
     }
     public void guardar(View view){
         EditText nombre = (EditText) findViewById(R.id.nombre);
+        name = nombre.getText().toString();
         Resultado resultado = new Resultado(nombre.getText().toString(), puntos);
         bd.insertarCalificacion(resultado);
     }
@@ -37,12 +39,12 @@ public class PantallaFinal extends AppCompatActivity {
 
     @SuppressWarnings("deprecation")
     public void Ir_twitter(View view) {
-        PublicarTweet tarea = new PublicarTweet();
+        PublicarTweet tarea = new PublicarTweet(name,puntos);
         tarea.execute();
     }
 
     public void home(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, inicio.class);
         startActivity(intent);
     }
 

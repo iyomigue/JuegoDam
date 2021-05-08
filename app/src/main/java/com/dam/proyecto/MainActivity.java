@@ -4,17 +4,23 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     private static final int NPreguntas = 3;
     private BBDD bd;
@@ -35,11 +41,21 @@ public class MainActivity extends AppCompatActivity {
     private TextView puntuacion;
     private int puntos = 0;
     private int index = 1;
+    private MainActivity mainActivity;
+    private static final long SHAKE_WAIT_TIME_MS =250 ;
+    private static final double SHAKE_THRESHOLD = 1.1;
+
+
+    private SensorManager mSensorManager;
+    private Sensor mAccelerometer;
+    private long mShakeTime;
+    private MainActivity actividad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pregunta);
+        mainActivity = this;
         bd = new BBDD(getApplicationContext());
         bd.cargaDatos();
         a = (Button) findViewById(R.id.boton_opcion_1);
@@ -67,14 +83,23 @@ public class MainActivity extends AppCompatActivity {
                 banderapublico++;
             }
         });
+
         boton50 = (ImageButton) findViewById(R.id.boton_5050);
         boton50.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Aqui debe salir una ventana que pida y detecte agitacion y luego eliminamos dos
                 //opciones
+                if (banderaboton50 ==0){
+                    Agitar(savedInstanceState);
+                    Dialog dialogo50 = creaDialogo50(savedInstanceState);
+                    dialogo50.show();
+                }
+
             }
         });
+
+
         botonsaltar = (ImageButton) findViewById(R.id.boton_saltar);
         botonsaltar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,15 +191,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("puntuacion", puntos);
         startActivity(intent);
     }
-    private void AplicarComodinPublico(){
 
-    }
-    private void AplicarComodinSaltar(){
-
-    }
-    private void AplicarComodin50(){
-
-    }
     private Dialog creaDialogoSaltar(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Comodín Saltar pregunta")
@@ -188,6 +205,20 @@ public class MainActivity extends AppCompatActivity {
                 .setNegativeButton("Voy a pensar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Se cancela el dialogo, no hace nada
+                    }
+                });
+        // Create the AlertDialog object and return it
+
+        return builder.create();
+    }
+
+    private Dialog creaDialogo50(Bundle savedInstanceState) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Comodín 50%")
+                .setMessage("Agita el telefono para eliminar dos respustas")
+                .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
                     }
                 });
         // Create the AlertDialog object and return it
@@ -236,5 +267,68 @@ public class MainActivity extends AppCompatActivity {
 
         return builder.create();
     }
+
+    private void comodin ( Bundle savedInstanceState){
+
+    }
+
+    public void eliminaRespuesta() {
+   switch (p.getRespuesta()){
+       case "a ":
+           c.setText("");
+           d.setText("");
+           break;
+       case "b ":
+           a.setText("");
+           d.setText("");
+           break;
+       case "c ":
+           b.setText("");
+           d.setText("");
+           break;
+       case "d ":
+           c.setText("");
+           a.setText("");
+           break;
+       default:
+           break;
+   }
+   banderaboton50++;
+
+    }
+
+    private void Agitar( Bundle savedInstanceState) {
+
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+    }
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {
+
+    }
+    // References:
+// - http://jasonmcreynolds.com/?p=388
+// - http://code.tutsplus.com/tutorials/using-the-accelerometer-on-android--mobile-22125
+    /**
+     * Detect a shake based on the ACCELEROMETER sensor
+     *
+     * @param event
+     */
+    private void detectShake(SensorEvent event) {
+        long now = System.currentTimeMillis();
+        if ((now - mShakeTime) > SHAKE_WAIT_TIME_MS) {
+            mShakeTime = now;
+            eliminaRespuesta();
+        }
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent sensorEvent) {
+        Sensor sensorAux = sensorEvent.sensor;
+        if (sensorAux.getType()==Sensor.TYPE_ACCELEROMETER) {
+            detectShake(sensorEvent);
+        }
+    }
+
 
 }
