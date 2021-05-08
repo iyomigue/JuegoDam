@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private TextView puntuacion;
     private int puntos = 0;
     private int index = 1;
-    private MainActivity mainActivity;
     private static final long SHAKE_WAIT_TIME_MS =250 ;
     private static final double SHAKE_THRESHOLD = 1.1;
 
@@ -49,13 +48,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
     private long mShakeTime;
-    private MainActivity actividad;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pregunta);
-        mainActivity = this;
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         bd = new BBDD(getApplicationContext());
         bd.cargaDatos();
         a = (Button) findViewById(R.id.boton_opcion_1);
@@ -91,7 +90,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 //Aqui debe salir una ventana que pida y detecte agitacion y luego eliminamos dos
                 //opciones
                 if (banderaboton50 ==0){
-                    Agitar(savedInstanceState);
                     Dialog dialogo50 = creaDialogo50(savedInstanceState);
                     dialogo50.show();
                 }
@@ -216,9 +214,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Comodín 50%")
                 .setMessage("Agita el telefono para eliminar dos respustas")
-                .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                .setNeutralButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-
+                        Agitar(savedInstanceState);
                     }
                 });
         // Create the AlertDialog object and return it
@@ -272,6 +270,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     }
 
+    //Funcion que elimina 2 opciones
     public void eliminaRespuesta() {
    switch (p.getRespuesta()){
        case "a ":
@@ -299,8 +298,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     private void Agitar( Bundle savedInstanceState) {
 
-        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        Log.d("cincuenta", "Acelero");
     }
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
