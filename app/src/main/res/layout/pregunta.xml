@@ -187,12 +187,7 @@
             android:background="@color/material_on_background_disabled"
             />
         <!--El codigo para añadir dinamicamente un boton seria:
-         ImageButton botonprogreso = new ImageButton(this);
-        layout = (LinearLayout) findViewById(R.id.layout_progreso);
-            LayoutParams lp = new LayoutParams(20, 20);
-            button.setLayoutParams(lp);
-            button.setText("ADDED");
-            layout.addView(button);
+
          -->
         </LinearLayout>
 
