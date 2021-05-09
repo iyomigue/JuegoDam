@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private TextView puntuacion;
     private int puntos = 0;
     private int index = 1;
-    private MainActivity mainActivity;
+
     private static final long SHAKE_WAIT_TIME_MS =250 ;
     private static final double SHAKE_THRESHOLD = 1.1;
 
@@ -49,13 +49,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
     private long mShakeTime;
-    private MainActivity actividad;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pregunta);
-        mainActivity = this;
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         bd = new BBDD(getApplicationContext());
         bd.cargaDatos();
         a = (Button) findViewById(R.id.boton_opcion_1);
@@ -299,8 +300,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     private void Agitar( Bundle savedInstanceState) {
 
-        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+         mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
     }
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
@@ -318,10 +320,18 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         long now = System.currentTimeMillis();
         if ((now - mShakeTime) > SHAKE_WAIT_TIME_MS) {
             mShakeTime = now;
-            eliminaRespuesta();
-        }
-    }
+            float gX = event.values[0] / SensorManager.GRAVITY_EARTH;
+            float gY = event.values[1] / SensorManager.GRAVITY_EARTH;
+            float gZ = event.values[2] / SensorManager.GRAVITY_EARTH;
+            // gForce will be close to 1 when there is no movement
+            double gForce = Math.sqrt(gX * gX + gY * gY + gZ * gZ);
+            // Change background color if gForce exceeds threshold;
+            // otherwise, reset the color
+            if (gForce > SHAKE_THRESHOLD) {
+                Log.d("cincuenta","Sacudida detectada");
+                eliminaRespuesta();
 
+            }       }    }
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         Sensor sensorAux = sensorEvent.sensor;
@@ -330,5 +340,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+       /* mSensorManager.registerListener(this, mAccelerometer,
+                SensorManager.SENSOR_DELAY_NORMAL);*/
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mSensorManager.unregisterListener(this, mAccelerometer);
+    }
 
 }
