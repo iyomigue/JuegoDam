@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -15,11 +17,14 @@ public class PantallaFinal extends AppCompatActivity {
     private int puntos;
     private BBDD bd;
     private String name;
+    private View view1, view2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.final_layout);
+        view1 = getLayoutInflater().inflate(R.layout.final_layout, null);
+        view2 = getLayoutInflater().inflate(R.layout.clasificacion, null);
+        setContentView(view1);
         bd = new BBDD(getApplicationContext());
         puntos = getIntent().getIntExtra("puntuacion", 0);
         TextView puntuacion = (TextView) findViewById(R.id.puntos);
@@ -35,6 +40,21 @@ public class PantallaFinal extends AppCompatActivity {
     public void calificaciones(View view){
         //TODO
         ArrayList<Resultado> resultados = bd.obtenerResultados();
+        setContentView(view2);
+        TableLayout tbl=(TableLayout) findViewById(R.id.tabla);
+
+        for (Resultado i : resultados) {
+            TableRow row1 = new TableRow(this);
+            TextView txt1=new TextView(this);
+            txt1.setText(i.getNombre());
+            TextView txt2=new TextView(this);
+           Integer puntos = i.getPuntuacion();
+            txt2.setText(puntos.toString());
+            row1.addView(txt1);
+            row1.addView(txt2);
+            tbl.addView(row1);
+        }
+
     }
 
     @SuppressWarnings("deprecation")
@@ -51,5 +71,10 @@ public class PantallaFinal extends AppCompatActivity {
     public void Ir_Compartir(View view) {
         Intent intent = new Intent(this, CompartirPuntuacion.class);
         startActivity(intent);
+    }
+
+    public void atras(View view) {
+
+        setContentView(view1);
     }
 }
