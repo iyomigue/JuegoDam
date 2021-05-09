@@ -3,6 +3,7 @@ package com.dam.proyecto;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -47,7 +48,11 @@ public class PantallaFinal extends AppCompatActivity {
             TableRow row1 = new TableRow(this);
             TextView txt1=new TextView(this);
             txt1.setText(i.getNombre());
+            txt1.setTextColor(Color.WHITE);
+            txt1.setTextSize(18);
             TextView txt2=new TextView(this);
+            txt2.setTextColor(Color.WHITE);
+            txt2.setTextSize(18);
            Integer puntos = i.getPuntuacion();
             txt2.setText(puntos.toString());
             row1.addView(txt1);
