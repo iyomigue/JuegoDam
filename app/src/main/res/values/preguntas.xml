@@ -2,9 +2,13 @@
 <resources>
     <string
         name="preguntas">
-        /1-¿Como de guapo soy?-mucho-demasiado-super-guapisimo-d
-        /2-¿Que hay de comer?-macarrones-mis besos-tortilla-ensalada-b
-        /3-¿Cuanto es 1 + 1?-0-3-2-El fantastico Ralph-d
-
+        /1-La tasa de simbolo de un sistema se mide en...-Erlangs-Baudios-Bits-Decibelios-b
+        /2-¿Cuál es el tamaño máximo de una trama Ethernet?-1518 bytes-1520 bytes-64 bytes-48 bytes-a
+        /3-En un mensaje SIP, el status code 2xx indica:-Solicitud mal enviada-Error de inicio-Solicitud aceptada-Faltan datos-c
+        /4-La PIRE indica la potencia que radia... -La antena si fuera redonda-La antena si fuera ideal-La antena-La antena en vacío-b
+        /5-La diferencia entre GET y POST en HTTP es:-El campo donde va la informacion-La información que contiene-La circunstancia de envío-Todas-a
+        /6-El verano es conocido como...-La 4ª estación-El tercer cuatrimestre-El bautizo de Charmander-El infierno-b
+        /7-¿Cuando se implementará IPv6?-Nunca-Nunca-Nunca-Todas las anteriores-d
+        /8-¿Cuanto vale la autocorrelacion en 0?-1-0-Depende-f(x/2)-a
     </string>
 </resources>
