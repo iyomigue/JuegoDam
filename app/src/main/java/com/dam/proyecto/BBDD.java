@@ -27,7 +27,7 @@ public class BBDD extends SQLiteOpenHelper {
         super(context, NOMBRE_BASEDATOS, null, VERSION_BASEDATOS);
         contexto = context;
     }
-
+//es
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(BORRAR_PREGUNTAS);
