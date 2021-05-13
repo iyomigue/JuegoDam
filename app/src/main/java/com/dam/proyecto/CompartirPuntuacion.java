@@ -27,7 +27,7 @@ public class CompartirPuntuacion extends Activity {
         shareIntent.setAction(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
         //Aqui habría que poner el valor de la puntuación
-        String cadena = "Puntuacion: 50";
+        String cadena = "Puntuacion: 50"; //TODO
         shareIntent.putExtra(Intent.EXTRA_TEXT, cadena);
         startActivity(Intent.createChooser(shareIntent, "Share your score"));
 
