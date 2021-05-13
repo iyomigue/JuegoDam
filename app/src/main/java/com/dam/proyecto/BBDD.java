@@ -37,7 +37,7 @@ public class BBDD extends SQLiteOpenHelper {
         db.execSQL(TABLA_CALIFICACION);
         //Añadimos a la base de datos las preguntas almacenadas en el xml
         String xmlPreguntas     = contexto.getString(R.string.preguntas);
-        String[] listaPreguntas = xmlPreguntas.split("/");
+        String[] listaPreguntas = xmlPreguntas.split("º");
         int i = 1;
         while(i < listaPreguntas.length) {
             String[] parts          = listaPreguntas[i].split("-");
@@ -96,7 +96,7 @@ public class BBDD extends SQLiteOpenHelper {
         db.execSQL(BORRAR_PREGUNTAS);
         db.execSQL(TABLA_PREGUNTAS);
         String xmlPreguntas     = contexto.getString(R.string.preguntas);
-        String[] listaPreguntas = xmlPreguntas.split("/");
+        String[] listaPreguntas = xmlPreguntas.split("º");
         int i = 1;
         while(i < listaPreguntas.length) {
             String[] parts          = listaPreguntas[i].split("-");

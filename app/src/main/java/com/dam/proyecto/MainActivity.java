@@ -22,7 +22,9 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
-    private static final int NPreguntas = 3;
+    private static final int NPreguntas = 10;
+    private static final int NpreguntasBBDD = 15;
+    int array[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //para llevar la cuenta de las preguntas
     private BBDD bd;
     private Pregunta p;
     private Button a;
@@ -79,9 +81,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 //Aqui debe salir una ventana y decir el publico ha determinado lo siguiente para
                 //cada pregunta, me vale con que aparezca una ventanita y 4 porcentajes aleatorio
                 //porque recordemos que el publico es tonto
-                Dialog dialogopublico = creaDialogoPublico(savedInstanceState);
-                dialogopublico.show();
-                banderapublico++;
+                if(banderapublico == 0) {
+                    Dialog dialogopublico = creaDialogoPublico(savedInstanceState);
+                    dialogopublico.show();
+                    banderapublico++;
+                }
             }
         });
 
@@ -125,19 +129,27 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         if (index > NPreguntas)
             Victoria();
         else {
-            //TODO
-            //falta hacer que sea aleatoria y no se repita
-            p = bd.obtenerPregunta(index);
+            int numeroAleatorio;
+            int bandera = 1;
+            do{
+                numeroAleatorio = (int) (Math.random() * ((NpreguntasBBDD+1) - 1)) + 1;
+                for (int element : array) {
+                    if (element == numeroAleatorio) {
+                        bandera = 0;
+                        break;
+                    }else{bandera = 1;}
+                }
+            }while (bandera != 1);
+
+            p = bd.obtenerPregunta(numeroAleatorio);
             a.setText(p.getA());
             b.setText(p.getB());
             c.setText(p.getC());
-            d.setText(p.getD());
-            preg.setText(p.getPregunta());
+            d.setText(p.getD());preg.setText(p.getPregunta());
             puntuacion.setText("Por "+ (puntos + 100)+" puntos:");
+            array[index]=numeroAleatorio;
             index++;
-            
-
-        }
+            }
     }
 
     public void CompruebaPregunta(View view){
@@ -185,6 +197,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     private void Victoria(){
         //TODO
+        Derrota();
     }
 
     private void Derrota(){
@@ -269,10 +282,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         return builder.create();
     }
 
-    private void comodin ( Bundle savedInstanceState){
-
-    }
-
     public void eliminaRespuesta() {
    switch (p.getRespuesta()){
        case "a ":
@@ -293,21 +302,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
            break;
        default:
            break;
-   }
-   banderaboton50++;
-
+        }
+        banderaboton50++;
     }
 
     private void Agitar( Bundle savedInstanceState) {
-
-
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
          mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
     }
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int i) {
 
-    }
+    public void onAccuracyChanged(Sensor sensor, int i) { }
     // References:
 // - http://jasonmcreynolds.com/?p=388
 // - http://code.tutsplus.com/tutorials/using-the-accelerometer-on-android--mobile-22125
@@ -329,7 +333,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             // otherwise, reset the color
             if (gForce > SHAKE_THRESHOLD) {
                 Log.d("cincuenta","Sacudida detectada");
-                eliminaRespuesta();
+                if(banderaboton50 == 0)
+                    eliminaRespuesta();
 
             }       }    }
     @Override

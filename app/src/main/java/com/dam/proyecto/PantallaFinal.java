@@ -3,6 +3,7 @@ package com.dam.proyecto;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -38,10 +39,18 @@ public class PantallaFinal extends AppCompatActivity {
     }
 
     public void calificaciones(View view){
-        //TODO
         ArrayList<Resultado> resultados = bd.obtenerResultados();
         setContentView(view2);
         TableLayout tbl=(TableLayout) findViewById(R.id.tabla);
+        tbl.removeAllViews();
+        TableRow row = new TableRow(this);
+        TextView txt=new TextView(this);
+        txt.setText("Calificaciones");
+        txt.setBackgroundColor(Color.BLUE);
+        txt.setTextColor(Color.WHITE);
+        txt.setTextSize(26);
+        row.addView(txt);
+        tbl.addView(row);
 
         for (Resultado i : resultados) {
             TableRow row1 = new TableRow(this);
