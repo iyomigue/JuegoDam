@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TableLayout;
@@ -45,27 +46,36 @@ public class PantallaFinal extends AppCompatActivity {
         TableLayout tbl=(TableLayout) findViewById(R.id.tabla);
         tbl.removeAllViews();
         TableRow row = new TableRow(this);
+        row.setGravity(Gravity.CENTER);
         TextView txt=new TextView(this);
         txt.setText("Calificaciones");
-        txt.setBackgroundColor(Color.BLUE);
+        txt.setBackgroundColor(Color.rgb(124,40,119));
         txt.setTextColor(Color.WHITE);
         txt.setTextSize(26);
         row.addView(txt);
         tbl.addView(row);
 
+
+
         for (Resultado i : resultados) {
             TableRow row1 = new TableRow(this);
+            
+            row1.setGravity(Gravity.CENTER);
             TextView txt1=new TextView(this);
+            txt1.setGravity(Gravity.CENTER);
             txt1.setText(i.getNombre());
             txt1.setTextColor(Color.WHITE);
             txt1.setTextSize(18);
             TextView txt2=new TextView(this);
+            txt2.setGravity(Gravity.CENTER);
             txt2.setTextColor(Color.WHITE);
             txt2.setTextSize(18);
            Integer puntos = i.getPuntuacion();
             txt2.setText(puntos.toString());
+
             row1.addView(txt1);
             row1.addView(txt2);
+
             tbl.addView(row1);
         }
 
