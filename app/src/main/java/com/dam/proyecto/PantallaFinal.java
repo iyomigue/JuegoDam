@@ -85,8 +85,14 @@ public class PantallaFinal extends AppCompatActivity {
     }
 
     public void Ir_Compartir(View view) {
-        Intent intent = new Intent(this, CompartirPuntuacion.class);
-        startActivity(intent);
+
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+
+        String cadena = "Mi puntuacion en '¿Quién quiere ser teleco?' ha sido de "+puntos+" puntos.";
+        shareIntent.putExtra(Intent.EXTRA_TEXT, cadena);
+        startActivity(Intent.createChooser(shareIntent, "Share your score"));
     }
 
     public void atras(View view) {
