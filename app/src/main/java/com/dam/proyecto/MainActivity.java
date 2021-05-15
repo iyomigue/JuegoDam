@@ -23,7 +23,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     private static final int NPreguntas = 10;
-    private static final int NpreguntasBBDD = 15;
+    private static int NpreguntasBBDD;
     int array[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //para llevar la cuenta de las preguntas
     private BBDD bd;
     private Pregunta p;
@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         bd = new BBDD(getApplicationContext());
         bd.cargaDatos();
+        NpreguntasBBDD = bd.getProfilesCount();
         a = (Button) findViewById(R.id.boton_opcion_1);
         b = (Button) findViewById(R.id.boton_opcion_2);
         c = (Button) findViewById(R.id.boton_opcion_3);

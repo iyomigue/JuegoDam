@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -74,6 +75,8 @@ public class PantallaFinal extends AppCompatActivity {
     public void Ir_twitter(View view) {
         PublicarTweet tarea = new PublicarTweet(name,puntos);
         tarea.execute();
+        Toast.makeText(getApplicationContext(),
+                "Tweet enviado", Toast.LENGTH_LONG).show();
     }
 
     public void home(View view) {

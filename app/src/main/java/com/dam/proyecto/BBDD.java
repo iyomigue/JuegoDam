@@ -3,6 +3,7 @@ package com.dam.proyecto;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -139,5 +140,12 @@ public class BBDD extends SQLiteOpenHelper {
         db.close();
         c.close();
         return lista_resultados;
+    }
+
+    public int getProfilesCount() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        long count = DatabaseUtils.queryNumEntries(db, "preguntas");
+        db.close();
+        return ((int) count);
     }
 }

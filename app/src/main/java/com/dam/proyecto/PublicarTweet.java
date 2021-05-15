@@ -3,7 +3,6 @@ package com.dam.proyecto;
 
 import android.os.AsyncTask;
 
-import java.util.Random;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -35,8 +34,10 @@ public class PublicarTweet extends AsyncTask<String, String, String> {
 
         try {
             String emoji =  getEmojiByUnicode(127881) ;
-            String status= nombre + " ha conseguido "+puntuacion.toString() +"puntos " + emoji+emoji;
+            String status= nombre + " ha conseguido "+puntuacion.toString() +" puntos " + emoji+emoji;
+            //This method calls https://api.twitter.com/1.1/statuses/update
             twitter.updateStatus(status);
+
         } catch (TwitterException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
