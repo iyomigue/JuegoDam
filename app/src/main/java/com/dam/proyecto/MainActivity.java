@@ -15,11 +15,19 @@ import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.provider.ContactsContract;
+import android.text.Layout;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import static com.dam.proyecto.R.color.material_on_background_disabled;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
@@ -71,9 +79,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         botonplantarse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, PantallaFinal.class);
-                intent.putExtra("puntuacion", puntos);
-                startActivity(intent);
+                Dialog dialogoPlantarse = creaDialogoPlantarse(savedInstanceState);
+                dialogoPlantarse.show();
+
             }
         });
         botonpub = (ImageButton) findViewById(R.id.boton_publico);
@@ -127,31 +135,46 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         MuestraPregunta();
     }
 
-    private void MuestraPregunta(){
+    private void MuestraPregunta() {
         if (index > NPreguntas)
             Victoria();
         else {
             int numeroAleatorio;
             int bandera = 1;
-            do{
-                numeroAleatorio = (int) (Math.random() * ((NpreguntasBBDD+1) - 1)) + 1;
+            do {
+                numeroAleatorio = (int) (Math.random() * ((NpreguntasBBDD + 1) - 1)) + 1;
                 for (int element : array) {
                     if (element == numeroAleatorio) {
                         bandera = 0;
                         break;
-                    }else{bandera = 1;}
+                    } else {
+                        bandera = 1;
+                    }
                 }
-            }while (bandera != 1);
+            } while (bandera != 1);
 
             p = bd.obtenerPregunta(numeroAleatorio);
             a.setText(p.getA());
             b.setText(p.getB());
             c.setText(p.getC());
-            d.setText(p.getD());preg.setText(p.getPregunta());
-            puntuacion.setText("Por "+ (puntos + 100)+" puntos:");
-            array[index]=numeroAleatorio;
+            d.setText(p.getD());
+            preg.setText(p.getPregunta());
+            puntuacion.setText("Por " + (puntos + 100) + " puntos:");
+            array[index] = numeroAleatorio;
             index++;
+            //cojo el layout de progreso
+            LinearLayout progreso = (LinearLayout) findViewById(R.id.layout_progreso);
+            progreso.removeAllViews();
+
+            for(int i = 0; i<=index ; i++){
+                ImageButton antenita = new ImageButton(this);
+                antenita.setImageResource(R.drawable.antena);
+                antenita.setId(index);
+                antenita.setScaleType(ImageButton.ScaleType.FIT_CENTER);
+                antenita.setBackgroundColor(0);
+                progreso.addView(antenita);
             }
+        }
     }
 
     private void CompruebaPregunta(View view){
@@ -261,6 +284,27 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     }
                 })
                 .setNegativeButton("Voy a pensar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Se cancela el dialogo, no hace nada
+                    }
+                });
+        // Create the AlertDialog object and return it
+
+        return builder.create();
+    }
+    private Dialog creaDialogoPlantarse(Bundle savedInstanceState) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Comodín Plantarse")
+                .setMessage("¿Plantarse? Te quedarás con " + puntos+ " puntos.")
+                .setPositiveButton("Me rindo", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //
+                        Intent intent = new Intent(MainActivity.this, PantallaFinal.class);
+                        intent.putExtra("puntuacion", puntos);
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("No, venga", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Se cancela el dialogo, no hace nada
                     }

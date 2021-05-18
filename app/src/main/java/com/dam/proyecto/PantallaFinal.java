@@ -1,9 +1,11 @@
 package com.dam.proyecto;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -25,6 +27,8 @@ public class PantallaFinal extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MediaPlayer sonido= MediaPlayer.create(this, R.raw.finalwii);
+        sonido.start();
         view1 = getLayoutInflater().inflate(R.layout.final_layout, null);
         view2 = getLayoutInflater().inflate(R.layout.clasificacion, null);
         setContentView(view1);
@@ -32,6 +36,15 @@ public class PantallaFinal extends AppCompatActivity {
         puntos = getIntent().getIntExtra("puntuacion", 0);
         TextView puntuacion = (TextView) findViewById(R.id.puntos);
         puntuacion.setText("PUNTUACION: "+ puntos);
+        //Gestiona el boton de atrás, lleva al menu inicial y apaga la musicota
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                home(view1);
+                sonido.stop();
+            }
+        };
+        this.getOnBackPressedDispatcher().addCallback(this, callback);
     }
     public void guardar(View view){
         EditText nombre = (EditText) findViewById(R.id.nombre);
@@ -106,7 +119,6 @@ public class PantallaFinal extends AppCompatActivity {
     }
 
     public void atras(View view) {
-
         setContentView(view1);
     }
 }

@@ -182,10 +182,7 @@
             android:scaleType="fitXY"
             android:background="@color/material_on_background_disabled"
             />
-        <!--El codigo para añadir dinamicamente un boton seria:
-
-         -->
-        </LinearLayout>
+    </LinearLayout>
 
 
 </LinearLayout>
