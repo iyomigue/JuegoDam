@@ -7,17 +7,18 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
@@ -153,47 +154,89 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
     }
 
-    public void CompruebaPregunta(View view){
-        //TODO
-        //añadir animaciones si quereis para comprobar la respuesta
+    private void CompruebaPregunta(View view){
         switch (view.getId()) {
             case R.id.boton_opcion_1:
                 if("a ".equals(p.getRespuesta()) || "a".equals(p.getRespuesta())){
-                    //acierto
                     puntos +=100;
-                    MuestraPregunta();
+                    PostAnimacion(view, true);
                 }else{
-                    Derrota();
+                    PostAnimacion(view, false);
                 }
                 break;
             case R.id.boton_opcion_2:
                 if("b ".equals(p.getRespuesta()) || "b".equals(p.getRespuesta())){
-                    //acierto
                     puntos +=100;
-                    MuestraPregunta();
+                    PostAnimacion(view, true);
                 }else{
-                    Derrota();
+                    PostAnimacion(view, false);
                 }
                 break;
             case R.id.boton_opcion_3:
                 if("c ".equals(p.getRespuesta()) || "c".equals(p.getRespuesta())){
-                    //acierto
                     puntos +=100;
-                    MuestraPregunta();
+                    PostAnimacion(view, true);
                 }else{
-                    Derrota();
+                    PostAnimacion(view, false);
                 }
                 break;
             case R.id.boton_opcion_4:
                 if("d ".equals(p.getRespuesta()) || "d".equals(p.getRespuesta())){
-                    //acierto
                     puntos +=100;
-                    MuestraPregunta();
+                    PostAnimacion(view, true);
                 }else{
-                    Derrota();
+                    PostAnimacion(view, false);
                 }
                 break;
         }
+    }
+
+    public void PreAnimacion (View view){
+        MediaPlayer sonido= MediaPlayer.create(this, R.raw.tension);
+        sonido.start();
+        new CountDownTimer(5000, 500) {
+            boolean tiktok = true;
+            Button seleccion =  (Button) findViewById(view.getId());
+            public void onTick(long millisUntilFinished) {
+                if (tiktok){
+                    seleccion.setTextColor(Color.YELLOW);
+                    tiktok = false;
+                }else{
+                    seleccion.setTextColor(Color.rgb(255, 165, 0));
+                    tiktok = true;
+                }
+            }
+            public void onFinish() {
+                this.cancel();
+                sonido.stop();
+                seleccion.setTextColor(Color.WHITE);
+                CompruebaPregunta(view);
+            }
+        }.start();
+    }
+    private void PostAnimacion (View view, boolean acierto){
+        Button seleccion =  (Button) findViewById(view.getId());
+        if (acierto){
+            MediaPlayer sonido= MediaPlayer.create(this, R.raw.acierto);
+            sonido.start();
+            seleccion.setTextColor(Color.GREEN);
+        }else{
+            MediaPlayer sonido= MediaPlayer.create(this, R.raw.fallo);
+            sonido.start();
+            seleccion.setTextColor(Color.RED);
+        }
+        new CountDownTimer(2000, 500) {
+            public void onTick(long millisUntilFinished) {
+            }
+            public void onFinish() {
+                this.cancel();
+                seleccion.setTextColor(Color.WHITE);
+                if(acierto)
+                    MuestraPregunta();
+                else
+                    Derrota();
+            }
+        }.start();
     }
 
     private void Victoria(){
