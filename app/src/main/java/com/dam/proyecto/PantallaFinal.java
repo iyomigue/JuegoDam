@@ -9,7 +9,9 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -36,6 +38,14 @@ public class PantallaFinal extends AppCompatActivity {
         puntos = getIntent().getIntExtra("puntuacion", 0);
         TextView puntuacion = (TextView) findViewById(R.id.puntos);
         puntuacion.setText("PUNTUACION: "+ puntos);
+        if(puntos==1000){
+            puntuacion.setPadding(20,30,0,0);
+
+            puntuacion.setText("Premio: Aprobó el cuatri pero dejó la carrera al cuarto año");
+            puntuacion.setTextSize(14);
+
+
+        }
         //Gestiona el boton de atrás, lleva al menu inicial y apaga la musicota
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override

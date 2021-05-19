@@ -161,6 +161,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             d.setText(p.getD());
             preg.setText(p.getPregunta());
             puntuacion.setText("Por " + (puntos + 100) + " puntos:");
+            if ((puntos+100)==1000)
+            {
+                puntuacion.setText("Por un cuatrimestre con todas aprobadas");
+            }
             array[index] = numeroAleatorio;
 
             //cojo el layout de progreso
