@@ -25,6 +25,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import static com.dam.proyecto.R.color.material_on_background_disabled;
@@ -161,20 +162,25 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             preg.setText(p.getPregunta());
             puntuacion.setText("Por " + (puntos + 100) + " puntos:");
             array[index] = numeroAleatorio;
-            index++;
-            //cojo el layout de progreso
-            LinearLayout progreso = (LinearLayout) findViewById(R.id.layout_progreso);
-            progreso.removeAllViews();
 
-            for(int i = 0; i<=index ; i++){
-                ImageButton antenita = new ImageButton(this);
+            //cojo el layout de progreso
+            RelativeLayout progreso = (RelativeLayout) findViewById(R.id.layout_progreso);
+            progreso.removeAllViewsInLayout();
+
+            for(int i = 1; i<=index ; i++){
+                ImageView antenita = new ImageView(this);
                 antenita.setImageResource(R.drawable.antena);
                 antenita.setId(i);
-                antenita.setScaleType(ImageButton.ScaleType.FIT_CENTER);
-                antenita.setBackgroundColor(0);
+                RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(80, 80);
+                if (i>0){
 
+                    lp.addRule(RelativeLayout.RIGHT_OF, (antenita.getId()-1));
+                    
+                }
+                antenita.setLayoutParams(lp);
                 progreso.addView(antenita);
             }
+            index++;
         }
     }
 

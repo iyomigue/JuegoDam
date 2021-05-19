@@ -165,24 +165,14 @@
             app:backgroundTint="#B7678998" />
     </GridLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/layout_progreso"
         android:layout_width="fill_parent"
-        android:layout_height="64dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_marginTop="40dp">
+        android:layout_marginTop="20dp">
 
-        <ImageButton
-            android:id="@+id/Progreso1"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginBottom="3dp"
-            android:layout_marginRight="5dp"
-            android:src="@drawable/antena"
-            android:scaleType="fitXY"
-            android:background="@color/material_on_background_disabled"
-            />
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </LinearLayout>
