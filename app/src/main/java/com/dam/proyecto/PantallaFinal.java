@@ -23,11 +23,11 @@ public class PantallaFinal extends AppCompatActivity {
     private BBDD bd;
     private String name;
     private View view1, view2;
-
+    private MediaPlayer sonido;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MediaPlayer sonido= MediaPlayer.create(this, R.raw.finalwii);
+        sonido= MediaPlayer.create(this, R.raw.finalwii);
         sonido.start();
         view1 = getLayoutInflater().inflate(R.layout.final_layout, null);
         view2 = getLayoutInflater().inflate(R.layout.clasificacion, null);
@@ -103,6 +103,7 @@ public class PantallaFinal extends AppCompatActivity {
     }
 
     public void home(View view) {
+        sonido.stop();
         Intent intent = new Intent(this, inicio.class);
         startActivity(intent);
     }

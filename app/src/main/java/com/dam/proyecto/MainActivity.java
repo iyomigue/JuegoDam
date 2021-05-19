@@ -169,9 +169,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             for(int i = 0; i<=index ; i++){
                 ImageButton antenita = new ImageButton(this);
                 antenita.setImageResource(R.drawable.antena);
-                antenita.setId(index);
+                antenita.setId(i);
                 antenita.setScaleType(ImageButton.ScaleType.FIT_CENTER);
                 antenita.setBackgroundColor(0);
+
                 progreso.addView(antenita);
             }
         }
