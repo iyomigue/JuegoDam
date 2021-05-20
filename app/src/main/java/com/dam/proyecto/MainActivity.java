@@ -328,7 +328,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private Dialog creaDialogo50(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Comodín 50%")
-                .setMessage("Agita el telefono para eliminar dos respustas")
+                .setMessage("Agita el telefono para eliminar dos respuestas")
                 .setNegativeButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
